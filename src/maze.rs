@@ -24,7 +24,7 @@ impl Maze {
             y: rng.gen_range(0..size) as i128,
         });
 
-        while visited.len() > 0 {
+        while !visited.is_empty() {
             let cell = visited.last().unwrap();
             let mut directions_tmp = directions.clone();
             directions_tmp.shuffle(&mut rng);
@@ -57,7 +57,7 @@ impl Maze {
         path[(size as f32 / 2.).floor() as usize][0].carve(Direction::West);
         path[(size as f32 / 2.).floor() as usize][size - 1].carve(Direction::East);
 
-        return Maze { path: path };
+        Maze { path }
     }
 
     pub fn print(&self) {
@@ -106,6 +106,12 @@ pub enum Direction {
     South,
     East,
     West,
+}
+
+impl Default for Cell  {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Cell {
